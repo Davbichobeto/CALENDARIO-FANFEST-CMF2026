@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CALENDARIO EVENTOS FIFA</title>
+    <title>CALENDARIO FANFES CMF2026</title>
     <style>
         :root {
             --bg-color: #050505;
@@ -21,23 +21,36 @@
             padding: 20px;
         }
 
+        /* Se agregó fondo gris tenue y bordes redondeados al título */
         h1 {
             color: var(--gold);
+            background-color: #1a1a1a; 
             text-align: center;
             font-weight: 300;
             letter-spacing: 2px;
             text-transform: uppercase;
             border-bottom: var(--line-thickness) solid var(--gold);
-            padding-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
             margin-bottom: 30px;
         }
 
         /* Vistas */
-        #calendar-view { display: block; }
+        /* Ajuste para que los calendarios abarquen el ancho de la pantalla */
+        #calendar-view { 
+            display: flex; 
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
         #detail-view { display: none; max-width: 600px; margin: 0 auto; }
 
         /* Calendario Grid */
-        .month-container { margin-bottom: 40px; }
+        .month-container { 
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 40px; 
+        }
         .month-title {
             color: var(--gold);
             font-size: 1.5em;
@@ -70,19 +83,32 @@
             border-right: var(--line-thickness) solid var(--gold);
             border-bottom: var(--line-thickness) solid var(--gold);
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
         }
 
         .day-cell:hover {
-            background-color: rgba(212, 175, 55, 0.1);
+            filter: brightness(1.2);
+        }
+
+        /* Colores de relleno solicitados para los eventos */
+        .day-cell.SS { background-color: #990000; } /* Rojo */
+        .day-cell.AA { background-color: #cc6600; } /* Naranja */
+        .day-cell.A { background-color: #006600; }  /* Verde */
+        .day-cell.LIBRE { background-color: #660099; } /* Morado */
+
+        /* Ajuste para que la etiqueta contraste con el fondo de color */
+        .day-cell.SS .event-cat, .day-cell.AA .event-cat, .day-cell.A .event-cat, .day-cell.LIBRE .event-cat {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
         }
 
         .day-cell.empty {
             cursor: default;
         }
         .day-cell.empty:hover {
+            filter: none;
             background-color: transparent;
         }
 
@@ -101,11 +127,6 @@
             border-radius: 2px;
             display: inline-block;
             align-self: flex-start;
-        }
-
-        .event-libre {
-            background-color: #555;
-            color: #fff;
         }
 
         /* Vista de Detalle */
@@ -160,7 +181,10 @@
 </head>
 <body>
 
-    <h1>CALENDARIO EVENTOS FIFA</h1>
+    <div style="text-align: center; margin-bottom: 10px;">
+        <img src="escudo_fc.jpg" alt="Escudo Fuerza Civil" style="max-height: 120px;">
+    </div>
+    <h1>CALENDARIO FANFES CMF2026</h1>
 
     <div id="calendar-view">
         <div class="month-container">
@@ -284,10 +308,11 @@
                 let dateKey = `2026-06-${i.toString().padStart(2, '0')}`;
                 let data = eventData[dateKey];
                 
+                // Se inyecta la clase data.cat directamente a la celda para el color de relleno
                 if (data) {
-                    juneHTML += `<div class="day-cell" onclick="showDetail('${dateKey}')">
+                    juneHTML += `<div class="day-cell ${data.cat}" onclick="showDetail('${dateKey}')">
                         <span class="date-num">${i}</span>
-                        <span class="event-cat ${data.cat === 'LIBRE' ? 'event-libre' : ''}">${data.cat}</span>
+                        <span class="event-cat">${data.cat}</span>
                     </div>`;
                 } else {
                     juneHTML += `<div class="day-cell empty"><span class="date-num">${i}</span></div>`;
@@ -301,10 +326,11 @@
                 let dateKey = `2026-07-${i.toString().padStart(2, '0')}`;
                 let data = eventData[dateKey];
                 
+                // Se inyecta la clase data.cat directamente a la celda para el color de relleno
                 if (data) {
-                    julyHTML += `<div class="day-cell" onclick="showDetail('${dateKey}')">
+                    julyHTML += `<div class="day-cell ${data.cat}" onclick="showDetail('${dateKey}')">
                         <span class="date-num">${i}</span>
-                        <span class="event-cat ${data.cat === 'LIBRE' ? 'event-libre' : ''}">${data.cat}</span>
+                        <span class="event-cat">${data.cat}</span>
                     </div>`;
                 } else {
                     julyHTML += `<div class="day-cell empty"><span class="date-num">${i}</span></div>`;
