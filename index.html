@@ -18,11 +18,10 @@
             color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 5px; /* Reducido al mínimo */
+            padding: 5px; 
             overflow-x: hidden;
         }
 
-        /* Título con fondo gris tenue y tamaño reducido */
         h1 {
             color: var(--gold);
             background-color: #222; 
@@ -38,10 +37,9 @@
             font-size: 1.2em;
         }
 
-        /* Vistas */
         #calendar-view { 
             display: flex; 
-            flex-direction: column; /* Uno arriba del otro */
+            flex-direction: column; 
             gap: 10px;
             width: 100%;
             max-width: 900px;
@@ -49,7 +47,6 @@
         }
         #detail-view { display: none; max-width: 600px; margin: 0 auto; }
 
-        /* Calendario Grid Compacto */
         .month-container { width: 100%; }
         .month-title {
             color: var(--gold);
@@ -79,7 +76,7 @@
         }
 
         .day-cell {
-            min-height: 42px; /* Altura muy reducida para ajustar a pantalla */
+            min-height: 42px; 
             padding: 2px;
             border-right: var(--line-thickness) solid var(--gold);
             border-bottom: var(--line-thickness) solid var(--gold);
@@ -90,11 +87,10 @@
             position: relative;
         }
 
-        /* Colores de relleno solicitados */
-        .day-cell.SS { background-color: #a00; }    /* Rojo */
-        .day-cell.AA { background-color: #c60; }    /* Naranja */
-        .day-cell.A { background-color: #060; }     /* Verde */
-        .day-cell.LIBRE { background-color: #609; } /* Morado */
+        .day-cell.SS { background-color: #a00; }    
+        .day-cell.AA { background-color: #c60; }    
+        .day-cell.A { background-color: #060; }     
+        .day-cell.LIBRE { background-color: #609; } 
 
         .day-cell.empty { cursor: default; background-color: transparent; }
 
@@ -116,7 +112,6 @@
             right: 2px;
         }
 
-        /* Cantidad de elementos en el espacio inferior */
         .elements-num {
             font-size: 0.8em;
             font-weight: bold;
@@ -125,19 +120,24 @@
             width: 100%;
         }
 
-        /* Vista de Detalle */
         .detail-card {
             border: var(--line-thickness) solid var(--gold);
             padding: 20px;
             background-color: #111;
         }
+        
+        /* Botón modificado a color azul marino */
         .btn-back {
-            background-color: transparent;
-            color: var(--gold);
+            background-color: #000080; 
+            color: #fff; 
             border: var(--line-thickness) solid var(--gold);
             padding: 5px 15px;
             cursor: pointer;
             margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        .btn-back:hover {
+            background-color: #000050; 
         }
     </style>
 </head>
@@ -254,7 +254,10 @@
                 cell.innerHTML = `<span class="date-num">${i}</span>`;
                 if(data) {
                     cell.innerHTML += `<span class="event-cat">${data.cat}</span>`;
-                    cell.innerHTML += `<span class="elements-num">${categoryData[data.cat].num}</span>`;
+                    // Se agregó el ícono de policía si hay elementos
+                    if(categoryData[data.cat].num !== "") {
+                        cell.innerHTML += `<span class="elements-num">👮‍♂️ ${categoryData[data.cat].num}</span>`;
+                    }
                 }
                 juneGrid.appendChild(cell);
             }
@@ -271,7 +274,10 @@
                 cell.innerHTML = `<span class="date-num">${i}</span>`;
                 if(data) {
                     cell.innerHTML += `<span class="event-cat">${data.cat}</span>`;
-                    cell.innerHTML += `<span class="elements-num">${categoryData[data.cat].num}</span>`;
+                    // Se agregó el ícono de policía si hay elementos
+                    if(categoryData[data.cat].num !== "") {
+                        cell.innerHTML += `<span class="elements-num">👮‍♂️ ${categoryData[data.cat].num}</span>`;
+                    }
                 }
                 julyGrid.appendChild(cell);
             }
