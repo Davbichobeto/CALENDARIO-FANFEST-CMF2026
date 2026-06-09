@@ -112,6 +112,16 @@
             right: 2px;
         }
 
+        /* Nuevo estilo para acomodar el texto del horario sin romper el diseño */
+        .time-range {
+            font-size: 0.6em;
+            color: #ddd;
+            text-align: right;
+            line-height: 1;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
         .elements-num {
             font-size: 0.8em;
             font-weight: bold;
@@ -126,7 +136,6 @@
             background-color: #111;
         }
         
-        /* Botón modificado a color azul marino */
         .btn-back {
             background-color: #000080; 
             color: #fff; 
@@ -181,6 +190,7 @@
         <button class="btn-back" onclick="showCalendar()">← REGRESAR</button>
         <div class="detail-card">
             <h2 id="detail-date-title" style="color: var(--gold); font-weight: 400; font-size: 1.1em; border-bottom: 1px solid var(--gold); padding-bottom: 5px;"></h2>
+            <p><b style="color: var(--gold-dim)">HORARIO:</b> <span id="detail-time"></span></p>
             <p><b style="color: var(--gold-dim)">CATEGORÍA:</b> <span id="detail-cat"></span></p>
             <p><b style="color: var(--gold-dim)">ESCENARIO:</b> <span id="detail-stage"></span></p>
             <p><b style="color: var(--gold-dim)">EVENTO:</b> <span id="detail-event"></span></p>
@@ -198,45 +208,45 @@
         };
 
         const eventData = {
-            "2026-06-11": { cat: "SS", event: "INAGURACION", artist: "LA LEYENDA" },
-            "2026-06-12": { cat: "AA", event: "JUEGOS DE GPOS", artist: "DE PARRANDA" },
-            "2026-06-13": { cat: "SS", event: "JUEGOS DE GPOS", artist: "CHAYANNE" },
-            "2026-06-14": { cat: "AA", event: "SUECIA VS TUNEZ", artist: "CABALLO DORADO" },
-            "2026-06-15": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A" },
-            "2026-06-16": { cat: "AA", event: "JUEGOS DE GPOS", artist: "TOY SELECTAH" },
-            "2026-06-17": { cat: "SS", event: "SUDAFRICA VS KOREA", artist: "GRUPO FIRME" },
-            "2026-06-18": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A" },
-            "2026-06-19": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A" },
-            "2026-06-20": { cat: "AA", event: "JUEGOS DE GPOS", artist: "LOS CADETES DE LINARES" },
-            "2026-06-21": { cat: "SS", event: "DIECISEISAVOS", artist: "ENRIQUE IGLESIAS" },
-            "2026-06-22": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A" },
-            "2026-06-23": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A" },
-            "2026-06-24": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A" },
-            "2026-06-25": { cat: "AA", event: "MEXICO VS KOREA", artist: "GENITALLICA" },
-            "2026-06-26": { cat: "AA", event: "JUEGOS DE GPOS", artist: "COSTUMBRE" },
-            "2026-06-27": { cat: "AA", event: "TUNEZ VS JAPON", artist: "EL GRAN SILENCIO" },
-            "2026-06-28": { cat: "SS", event: "JUEGOS DE GPOS", artist: "IMAGINE DRAGONS" },
-            "2026-06-29": { cat: "AA", event: "DIECISEISAVOS", artist: "THE CLSSX" },
-            "2026-06-30": { cat: "AA", event: "DIECISEISAVOS", artist: "3BALL MTY" },
-            "2026-07-01": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A" },
-            "2026-07-02": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A" },
-            "2026-07-03": { cat: "AA", event: "JUEGOS DE GPOS", artist: "JUMBO" },
-            "2026-07-04": { cat: "AA", event: "OCTAVOS", artist: "N/A" },
-            "2026-07-05": { cat: "AA", event: "OCTAVOS", artist: "LOS PAYASONICOS" },
-            "2026-07-06": { cat: "A", event: "OCTAVOS", artist: "N/A" },
-            "2026-07-07": { cat: "A", event: "OCTAVOS", artist: "N/A" },
+            "2026-06-11": { cat: "SS", event: "INAGURACION", artist: "LA LEYENDA", ap: "11:00", ci: "23:00" },
+            "2026-06-12": { cat: "AA", event: "JUEGOS DE GPOS", artist: "DE PARRANDA", ap: "17:00", ci: "00:00" },
+            "2026-06-13": { cat: "SS", event: "JUEGOS DE GPOS", artist: "CHAYANNE", ap: "15:00", ci: "01:00" },
+            "2026-06-14": { cat: "AA", event: "SUECIA VS TUNEZ", artist: "CABALLO DORADO", ap: "13:00", ci: "23:00" },
+            "2026-06-15": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "15:30", ci: "21:30" },
+            "2026-06-16": { cat: "AA", event: "JUEGOS DE GPOS", artist: "TOY SELECTAH", ap: "12:30", ci: "21:30" },
+            "2026-06-17": { cat: "SS", event: "SUDAFRICA VS KOREA", artist: "GRUPO FIRME", ap: "13:30", ci: "22:30" },
+            "2026-06-18": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "15:00", ci: "23:30" },
+            "2026-06-19": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "15:00", ci: "01:00" },
+            "2026-06-20": { cat: "AA", event: "JUEGOS DE GPOS", artist: "LOS CADETES DE LINARES", ap: "13:00", ci: "01:00" },
+            "2026-06-21": { cat: "SS", event: "DIECISEISAVOS", artist: "ENRIQUE IGLESIAS", ap: "12:00", ci: "22:00" },
+            "2026-06-22": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "13:30", ci: "20:30" },
+            "2026-06-23": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "13:00", ci: "23:00" },
+            "2026-06-24": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "15:00", ci: "00:30" },
+            "2026-06-25": { cat: "AA", event: "MEXICO VS KOREA", artist: "GENITALLICA", ap: "13:30", ci: "22:30" },
+            "2026-06-26": { cat: "AA", event: "JUEGOS DE GPOS", artist: "COSTUMBRE", ap: "12:30", ci: "23:30" },
+            "2026-06-27": { cat: "AA", event: "TUNEZ VS JAPON", artist: "EL GRAN SILENCIO", ap: "14:00", ci: "00:30" },
+            "2026-06-28": { cat: "SS", event: "JUEGOS DE GPOS", artist: "IMAGINE DRAGONS", ap: "12:00", ci: "21:30" },
+            "2026-06-29": { cat: "AA", event: "DIECISEISAVOS", artist: "THE CLSSX", ap: "18:00", ci: "23:30" },
+            "2026-06-30": { cat: "AA", event: "DIECISEISAVOS", artist: "3BALL MTY", ap: "18:00", ci: "23:30" },
+            "2026-07-01": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "13:30", ci: "20:30" },
+            "2026-07-02": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "12:30", ci: "19:30" },
+            "2026-07-03": { cat: "AA", event: "JUEGOS DE GPOS", artist: "JUMBO", ap: "15:00", ci: "23:30" },
+            "2026-07-04": { cat: "AA", event: "OCTAVOS", artist: "N/A", ap: "14:00", ci: "22:30" },
+            "2026-07-05": { cat: "AA", event: "OCTAVOS", artist: "LOS PAYASONICOS", ap: "13:00", ci: "22:30" },
+            "2026-07-06": { cat: "A", event: "OCTAVOS", artist: "N/A", ap: "12:30", ci: "20:30" },
+            "2026-07-07": { cat: "A", event: "OCTAVOS", artist: "N/A", ap: "13:30", ci: "16:30" },
             "2026-07-08": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
-            "2026-07-09": { cat: "A", event: "CUARTOS", artist: "MC DAVO" },
-            "2026-07-10": { cat: "AA", event: "CUARTOS", artist: "LA SONORA DINAMITA" },
-            "2026-07-11": { cat: "AA", event: "CUARTOS", artist: "N/A" },
+            "2026-07-09": { cat: "A", event: "CUARTOS", artist: "MC DAVO", ap: "13:30", ci: "16:30" },
+            "2026-07-10": { cat: "AA", event: "CUARTOS", artist: "LA SONORA DINAMITA", ap: "12:00", ci: "21:30" },
+            "2026-07-11": { cat: "AA", event: "CUARTOS", artist: "N/A", ap: "14:00", ci: "23:30" },
             "2026-07-12": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
             "2026-07-13": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
-            "2026-07-14": { cat: "A", event: "SEMIFINALES", artist: "N/A" },
-            "2026-07-15": { cat: "A", event: "SEMIFINALES", artist: "N/A" },
+            "2026-07-14": { cat: "A", event: "SEMIFINALES", artist: "N/A", ap: "12:30", ci: "15:30" },
+            "2026-07-15": { cat: "A", event: "SEMIFINALES", artist: "N/A", ap: "12:30", ci: "15:30" },
             "2026-07-16": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
             "2026-07-17": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
-            "2026-07-18": { cat: "AA", event: "TERCER LUGAR", artist: "KEVIS MAIKY" },
-            "2026-07-19": { cat: "SS", event: "FINAL CMF2026", artist: "DPR IAN" }
+            "2026-07-18": { cat: "AA", event: "TERCER LUGAR", artist: "KEVIS MAIKY", ap: "14:00", ci: "22:30" },
+            "2026-07-19": { cat: "SS", event: "FINAL CMF2026", artist: "DPR IAN", ap: "12:00", ci: "22:00" }
         };
 
         function renderCalendar() {
@@ -254,7 +264,11 @@
                 cell.innerHTML = `<span class="date-num">${i}</span>`;
                 if(data) {
                     cell.innerHTML += `<span class="event-cat">${data.cat}</span>`;
-                    // Se agregó el ícono de policía si hay elementos
+                    
+                    // Lógica para mostrar la hora en el cuadro
+                    let timeText = data.cat === 'LIBRE' ? 'Sin actividad' : `${data.ap} - ${data.ci}`;
+                    cell.innerHTML += `<span class="time-range">${timeText}</span>`;
+
                     if(categoryData[data.cat].num !== "") {
                         cell.innerHTML += `<span class="elements-num">👮‍♂️ ${categoryData[data.cat].num}</span>`;
                     }
@@ -274,7 +288,11 @@
                 cell.innerHTML = `<span class="date-num">${i}</span>`;
                 if(data) {
                     cell.innerHTML += `<span class="event-cat">${data.cat}</span>`;
-                    // Se agregó el ícono de policía si hay elementos
+                    
+                    // Lógica para mostrar la hora en el cuadro
+                    let timeText = data.cat === 'LIBRE' ? 'Sin actividad' : `${data.ap} - ${data.ci}`;
+                    cell.innerHTML += `<span class="time-range">${timeText}</span>`;
+
                     if(categoryData[data.cat].num !== "") {
                         cell.innerHTML += `<span class="elements-num">👮‍♂️ ${categoryData[data.cat].num}</span>`;
                     }
@@ -287,12 +305,22 @@
             const data = eventData[dateKey];
             const catInfo = categoryData[data.cat];
             const dateObj = new Date(dateKey + "T12:00:00");
+            
             document.getElementById('detail-date-title').innerText = dateObj.toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
+            
+            // Detalle del horario
+            if (data.cat === 'LIBRE') {
+                document.getElementById('detail-time').innerText = "Sin actividad programada";
+            } else {
+                document.getElementById('detail-time').innerText = `Apertura ${data.ap} hrs / Cierre ${data.ci} hrs`;
+            }
+
             document.getElementById('detail-cat').innerText = data.cat;
             document.getElementById('detail-stage').innerText = catInfo.stage;
             document.getElementById('detail-event').innerText = data.event;
             document.getElementById('detail-artist').innerText = data.artist;
             document.getElementById('detail-elements').innerText = catInfo.elements;
+            
             document.getElementById('calendar-view').style.display = 'none';
             document.getElementById('detail-view').style.display = 'block';
         }
