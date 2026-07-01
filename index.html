@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -87,12 +88,23 @@
             position: relative;
         }
 
-        .day-cell.SS { background-color: #a00; }    
-        .day-cell.AA { background-color: #c60; }    
-        .day-cell.A { background-color: #060; }     
+        /* Color Naranja Fuerte para días con evento */
+        .day-cell.SS, .day-cell.AA, .day-cell.A { background-color: #FF5500; }    
         .day-cell.LIBRE { background-color: #609; } 
 
         .day-cell.empty { cursor: default; background-color: transparent; }
+
+        /* Línea transversal para días que ya pasaron */
+        .past-day::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top left, transparent 48%, rgba(255, 255, 255, 0.7) 49%, rgba(255, 255, 255, 0.7) 51%, transparent 52%);
+            pointer-events: none;
+        }
 
         .date-num {
             font-size: 0.85em;
@@ -112,7 +124,6 @@
             right: 2px;
         }
 
-        /* Nuevo estilo para acomodar el texto del horario sin romper el diseño */
         .time-range {
             font-size: 0.6em;
             color: #ddd;
@@ -229,29 +240,32 @@
             "2026-06-29": { cat: "AA", event: "OCTAVOS DE FINAL: 1° GRUPO F VS 2° GRUPO C", artist: "THE CLSSX", ap: "17:30", ci: "23:30" },
             "2026-06-30": { cat: "AA", event: "TRANSMISIÓN DE PARTIDOS DEL DÍA", artist: "3BALLMTY", ap: "18:00", ci: "23:30" },
             "2026-07-01": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "13:30", ci: "20:30" },
-            "2026-07-02": { cat: "A", event: "JUEGOS DE GPOS", artist: "N/A", ap: "12:30", ci: "19:30" },
-            "2026-07-03": { cat: "AA", event: "TRANSMISIÓN DE PARTIDOS DEL DÍA", artist: "JUMBO", ap: "15:00", ci: "23:30" },
-            "2026-07-04": { cat: "AA", event: "TRANSMISIÓN DE PARTIDOS DEL DÍA", artist: "EL MALILLA", ap: "14:00", ci: "23:30" },
-            "2026-07-05": { cat: "AA", event: "TRANSMISIÓN DE PARTIDOS DEL DÍA", artist: "PAYASONICOS", ap: "13:00", ci: "22:30" },
-            "2026-07-06": { cat: "A", event: "OCTAVOS", artist: "N/A", ap: "12:30", ci: "20:30" },
-            "2026-07-07": { cat: "A", event: "OCTAVOS", artist: "N/A", ap: "13:30", ci: "16:30" },
-            "2026-07-08": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
-            "2026-07-09": { cat: "A", event: "CUARTOS", artist: "N/A", ap: "13:30", ci: "16:30" },
-            "2026-07-10": { cat: "AA", event: "TRANSMISIÓN DE PARTIDOS DEL DÍA", artist: "MC DAVO", ap: "12:00", ci: "22:00" },
-            "2026-07-11": { cat: "AA", event: "TRANSMISIÓN DE PARTIDOS DEL DÍA", artist: "LA SONORA DINAMITA", ap: "14:00", ci: "23:30" },
-            "2026-07-12": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
-            "2026-07-13": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
-            "2026-07-14": { cat: "A", event: "SEMIFINALES", artist: "N/A", ap: "12:30", ci: "15:30" },
-            "2026-07-15": { cat: "A", event: "SEMIFINALES", artist: "N/A", ap: "12:30", ci: "15:30" },
-            "2026-07-16": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
-            "2026-07-17": { cat: "LIBRE", event: "DÍA LIBRE", artist: "N/A" },
-            "2026-07-18": { cat: "AA", event: "PARTIDO POR EL TERCER LUGAR", artist: "KEVIS Y MAIKY", ap: "14:00", ci: "00:00" },
-            "2026-07-19": { cat: "AA", event: "GRAN FINAL DE LA COPA DEL MUNDO", artist: "ARTISTA SORPRESA", ap: "12:00", ci: "23:00" }
+            "2026-07-02": { cat: "AA", event: "TRANSMISIÓN DE PARTIDO Y SHOW MUSICAL", artist: "EL GRAN SILENCIO", ap: "12:30", ci: "19:30" },
+            "2026-07-03": { cat: "AA", event: "TRANSMISIÓN DE PARTIDO Y SHOW MUSICAL", artist: "JUMBO", ap: "15:00", ci: "00:00" },
+            "2026-07-04": { cat: "AA", event: "TRANSMISIÓN DE PARTIDO Y SHOW MUSICAL", artist: "EL MALILLA", ap: "14:00", ci: "01:00" },
+            "2026-07-05": { cat: "AA", event: "TRANSMISIÓN DE PARTIDO Y SHOW MUSICAL", artist: "LOS PAYASÓNICOS", ap: "13:00", ci: "23:00" },
+            "2026-07-06": { cat: "A", event: "ÚNICAMENTE TRANSMISIÓN DE PARTIDO", artist: "N/A", ap: "12:30", ci: "20:30" },
+            "2026-07-07": { cat: "AA", event: "TRANSMISIÓN DE PARTIDO Y SHOW MUSICAL", artist: "LA COSTUMBRE", ap: "13:30", ci: "23:30" },
+            "2026-07-08": { cat: "LIBRE", event: "DÍA DE DESCANSO", artist: "N/A" },
+            "2026-07-09": { cat: "A", event: "ÚNICAMENTE TRANSMISIÓN DE PARTIDO", artist: "N/A", ap: "13:30", ci: "16:30" },
+            "2026-07-10": { cat: "AA", event: "TRANSMISIÓN DE PARTIDO Y SHOW MUSICAL", artist: "MC DAVO", ap: "12:00", ci: "23:00" },
+            "2026-07-11": { cat: "AA", event: "TRANSMISIÓN DE PARTIDO Y SHOW MUSICAL", artist: "LA SONORA DINAMITA", ap: "14:00", ci: "01:00" },
+            "2026-07-12": { cat: "LIBRE", event: "DÍA DE DESCANSO", artist: "N/A" },
+            "2026-07-13": { cat: "LIBRE", event: "DÍA DE DESCANSO", artist: "N/A" },
+            "2026-07-14": { cat: "A", event: "TRANSMISIÓN DE SEMIFINALES", artist: "N/A", ap: "12:30", ci: "15:30" },
+            "2026-07-15": { cat: "A", event: "TRANSMISIÓN DE SEMIFINALES", artist: "N/A", ap: "12:30", ci: "15:30" },
+            "2026-07-16": { cat: "LIBRE", event: "DÍA DE DESCANSO", artist: "N/A" },
+            "2026-07-17": { cat: "LIBRE", event: "DÍA DE DESCANSO", artist: "N/A" },
+            "2026-07-18": { cat: "AA", event: "PARTIDO POR EL 3ER LUGAR Y SHOW MUSICAL", artist: "KEVIS & MAYKYY", ap: "14:00", ci: "00:30" },
+            "2026-07-19": { cat: "AA", event: "GRAN FINAL Y CLAUSURA OFICIAL", artist: "ARTISTA SORPRESA", ap: "11:30", ci: "00:30" }
         };
 
         function renderCalendar() {
             const juneGrid = document.getElementById('grid-june');
             const julyGrid = document.getElementById('grid-july');
+            
+            // Usamos el 1 de julio de 2026 como fecha base para tachar los días anteriores
+            const currentDateStr = "2026-07-01"; 
 
             // Junio (Lunes)
             for (let i = 1; i <= 30; i++) {
@@ -261,11 +275,15 @@
                 cell.className = data ? `day-cell ${data.cat}` : "day-cell";
                 if(data) cell.onclick = () => showDetail(dateKey);
                 
+                // Si la fecha ya pasó, agregamos la clase past-day
+                if (dateKey < currentDateStr) {
+                    cell.classList.add('past-day');
+                }
+
                 cell.innerHTML = `<span class="date-num">${i}</span>`;
                 if(data) {
                     cell.innerHTML += `<span class="event-cat">${data.cat}</span>`;
                     
-                    // Lógica para mostrar la hora en el cuadro
                     let timeText = data.cat === 'LIBRE' ? 'Sin actividad' : `${data.ap} - ${data.ci}`;
                     cell.innerHTML += `<span class="time-range">${timeText}</span>`;
 
@@ -285,11 +303,15 @@
                 cell.className = data ? `day-cell ${data.cat}` : "day-cell";
                 if(data) cell.onclick = () => showDetail(dateKey);
                 
+                // Si la fecha ya pasó, agregamos la clase past-day
+                if (dateKey < currentDateStr) {
+                    cell.classList.add('past-day');
+                }
+
                 cell.innerHTML = `<span class="date-num">${i}</span>`;
                 if(data) {
                     cell.innerHTML += `<span class="event-cat">${data.cat}</span>`;
                     
-                    // Lógica para mostrar la hora en el cuadro
                     let timeText = data.cat === 'LIBRE' ? 'Sin actividad' : `${data.ap} - ${data.ci}`;
                     cell.innerHTML += `<span class="time-range">${timeText}</span>`;
 
@@ -334,3 +356,5 @@
     </script>
 </body>
 </html>
+
+
